@@ -13,12 +13,12 @@ SELECT * FROM albums LIMIT 10;
 --     albums 테이블에서 제목(Title)만 보여주세요.
 -- 테이블 albums
 
-
+SELECT Title FROM albums ;
 
 -- Q2. 고객 명부에서 이름/성/이메일만 추려 달라는 요청입니다.
 --     customers 테이블에서 FirstName, LastName, Email 을 보여주세요.
 -- 테이블 customers
-
+SELECT firstName, LastName, Email FROM customers ;
 
 
 /*------------ DISTINCT ------------*/
@@ -27,7 +27,7 @@ SELECT * FROM albums LIMIT 10;
 --     customers 의 Country 를 중복 없이 보여주세요.
 -- 테이블 customers
 
-
+SELECT DISTINCT(Country) FROM customers;
 
 /*------------ WHERE + 비교 연산자 ------------*/
 
@@ -35,22 +35,36 @@ SELECT * FROM albums LIMIT 10;
 --     customers 에서 Country 가 'Brazil' 인 고객을 모두 보여주세요.
 -- 테이블 customers
 
+SELECT CustomerId, 
+        FirstName || ' ' || LastName AS NAME        
+ FROM customers
+WHERE Country = 'Brazil';
 
 -- Q5. 재생 시간이 5분(=300000 밀리초)을 넘는 긴 곡을 찾으려 합니다.
 --     tracks 에서 Milliseconds 가 300000 초과인 곡을 보여주세요. (앞 10건)
 -- 테이블 tracks
 
+SELECT TrackId, Name
+FROM tracks
+WHERE Milliseconds > 300000 
+LIMIT 10 ;
 
 -- Q6. 결제 금액이 큰 인보이스를 점검합니다.
 --     invoices 에서 Total 이 15 이상인 건을 보여주세요.
 -- 테이블 invoices
 
+SELECT * FROM invoices ;
+
+SELECT * FROM invoices
+WHERE total >= 15 ;
 
 -- Q7. 단가가 0.99 가 아닌(특별 단가) 곡을 찾으려 합니다.
 --     tracks 에서 UnitPrice 가 0.99 가 아닌 곡을 보여주세요. (앞 10건)
 -- 테이블 tracks
 
-
+SELECT * FROM tracks
+WHERE UnitPrice is NOT 0.99 
+LIMIT 10 ;
 
 /*------------ 복합 조건 (AND / OR / NOT) ------------*/
 
@@ -58,10 +72,13 @@ SELECT * FROM albums LIMIT 10;
 --     customers 에서 Country 가 'USA' 그리고 State 가 'CA' 인 고객을 보여주세요.
 -- 테이블 customers
 
+SELECT * FROM customers
+WHERE country = 'USA' and state = 'CA';
 
 -- Q9. 미국 또는 캐나다 고객을 한 번에 보려 합니다.
 --     customers 에서 Country 가 'USA' 이거나 'Canada' 인 고객을 보여주세요.
 -- 테이블 customers
+
 
 
 -- Q10. 미국이 아닌 해외 고객만 보려 합니다.

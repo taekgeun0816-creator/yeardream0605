@@ -22,9 +22,10 @@ PRAGMA foreign_keys = ON;
 -- [학과 테이블] department: 학과별 코드, 이름, 위치 저장
 CREATE TABLE department(
     dept_id   VARCHAR(10) PRIMARY KEY,   -- 기본키(중복값x)
-    dep_name  VARCHAR(50) NOT NULL,      -- NULL 미허용
+    dept_name  VARCHAR(50) NOT NULL,      -- NULL 미허용
     location  VARCHAR(50) DEFAULT '미정'  -- 기본값 미정
 );
+ALTER TABLE department RENAME COLUMN dep_name TO dept_name ;
 -- ============================================================
 -- [교수 테이블] professor: 교수 고유 ID, 이름, 이메일, 소속 학과, 임용년도 저장
 CREATE TABLE professor (
@@ -76,6 +77,11 @@ CREATE TABLE enrollment (
 
 -- ============================================================
 -- 예제 01: NOT NULL 제약 시연 - 필수 입력 값
+INSERT INTO department (dept_id, dept_name, location)
+VALUES
+    ('CSE',  '컴퓨터공학과', '공학관 3층'), -- 정상
+    ('ENG',  '영어영문학과', '인문관 2층'),
+    ('MATH', '수학과',       '미정');      -- location 미입력 시 '미정' 자동
 
 -- ============================================================
 -- 예제 02: NOT NULL 위반 시 에러 발생 확인
@@ -97,6 +103,8 @@ CREATE TABLE enrollment (
 -- ============================================================
 -- 예제 07: CHECK 제약 - 교수 임용 연도 1980년 이상만 가능
 
+
+
 -- ============================================================
 -- 예제 08: 학생 데이터 삽입
 
@@ -105,6 +113,7 @@ CREATE TABLE enrollment (
 
 -- ============================================================
 -- 예제 10: PRIMARY KEY 제약 위반 - 중복 student_id
+
 
 -- ============================================================
 -- 예제 11: FOREIGN KEY 제약 위반 - 없는 학과 참조
@@ -117,11 +126,27 @@ CREATE TABLE enrollment (
 -- ============================================================
 -- 예제 13: CONSTRAINT 이름 부여 관리 예시
 
+CREATE TABLE classroom (
+    room_id   VARCHAR(10),
+    building  VARCHAR(20) NOT NULL,
+    capacity  INT,
+    CONSTRAINT classroom_pk   PRIMARY KEY (room_id),
+    CONSTRAINT capacity_check CHECK (capacity > 0 AND capacity <= 200)
+);
 -- ============================================================
 -- 예제 14: building 컬럼에 UNIQUE 제약 추가 (테이블 새로 생성)
 
 -- ============================================================
 -- 예제 15: DEFAULT 값 변경 (capacity 기본 50으로, SQLite는 ALTER 불가)
+DROP classroom ;
+
+CREATE TABLE classroom_new (
+    room_id   VARCHAR(10),
+    building  VARCHAR(20) NOT NULL UNIQUE,
+    capacity  INT         DEFAULT 50,
+    CONSTRAINT classroom_pk   PRIMARY KEY (room_id),
+    CONSTRAINT capacity_check CHECK (capacity > 0 AND capacity <= 200)
+);
 
 -- ============================================================
 -- 예제 16: 제약 조건 삭제 (DROP CONSTRAINT 불가) - CHECK 제외

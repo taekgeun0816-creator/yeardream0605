@@ -5,19 +5,7 @@
             "previewLimit": 50,
             "driver": "SQLite",
             "name": "chinook",
-            "database": "${workspaceFolder:yeardream0605}/datasets/chinook.db"
-        },
-        {
-            "previewLimit": 50,
-            "driver": "SQLite",
-            "name": "classmodel",
-            "database": "${workspaceFolder:yeardream0605}/datasets/classicmodels.db"
-        },
-        {
-            "previewLimit": 50,
-            "driver": "SQLite",
-            "name": "school_db",
-            "database": "${workspaceFolder:yeardream0605}/datasets/school_db.db"
+            "database": "${workspaceFolder:이어드림스쿨6기}/datasets/chinook.db"
         }
     ]
 }
