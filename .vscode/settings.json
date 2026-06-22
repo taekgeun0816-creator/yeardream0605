@@ -6,6 +6,12 @@
             "driver": "SQLite",
             "name": "chinook",
             "database": "${workspaceFolder:이어드림스쿨6기}/datasets/chinook.db"
+        },
+        {
+            "previewLimit": 50,
+            "driver": "SQLite",
+            "database": "${workspaceFolder:이어드림스쿨6기}/2주차/04_SQL시작하기/classicmodels.db",
+            "name": "class"
         }
     ]
 }
